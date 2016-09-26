@@ -15,8 +15,11 @@ RUN apk add --no-cache nodejs ca-certificates openssl tar python build-base make
       apk del build-base make python
 
 ADD index.html /reveal
-ADD assets /reveal
+ADD assets /reveal/assets
+ADD do.scss /reveal/css/theme/source
 ADD contents.md /reveal
+RUN mv /reveal/assets/solarized-light.css /reveal/lib/css
+RUN grunt css-themes
 EXPOSE 8000
 
 CMD npm start
