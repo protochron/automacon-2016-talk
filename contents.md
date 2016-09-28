@@ -10,6 +10,8 @@ Dan Norris
 > operations of application containers across clusters of hosts, providing
 > container-centric infrastructure.
 
+* Run lots of containers easily and scalably
+
 Note:
 Kubernetes is an open-source platform for automating deployment,
 scaling, and operations of application containers across clusters of hosts.
@@ -44,6 +46,7 @@ scaling, and operations of application containers across clusters of hosts.
   * logging
   * metrics
 * Users submit jobs using an API that wraps Kubernetes
+* Find out more at KubeCon 2016!
 
 
 <!-- .slide: data-background-image="/assets/map/map.png" data-background-size="100% auto" -->
@@ -67,7 +70,7 @@ scaling, and operations of application containers across clusters of hosts.
 ## The old way
 * Statically allocate droplets (doctl or API) <!-- .element: class="fragment" -->
 * Provision using Chef <!-- .element: class="fragment" -->
-* Works great for small services, falls apart when launching 100s of droplets <!-- .element: class="fragment" -->
+* Works great for small services, not so great when launching 100s of droplets <!-- .element: class="fragment" -->
 
 
 ![Terraform](/assets/readme.png)
@@ -90,9 +93,9 @@ scaling, and operations of application containers across clusters of hosts.
 >that are managed as a group. Modules are used to create reusable components in
 >Terraform as well as for basic code organization.
 
-* Droplet <!-- .element: class="fragment" -->
-* etcd <!-- .element: class="fragment" -->
-* Kubernetes <!-- .element: class="fragment" -->
+* Droplet
+* etcd
+* Kubernetes
 
 
 ## Droplet Module
@@ -147,7 +150,8 @@ Creates a kubernetes cluster
 ### Create a cluster
 * Export secrets to a <code>secrets.tfvars</code> file
 * Create a top-level cluster module + variables file
-* <code>terraform apply -var-file=~/secrets.tfvars -var-file=cluster.tfvars
+* <code>terraform apply -var-file=~/secrets.tfvars -var-file=cluster.tfvars </code>
+* Start cluster services
 
 
 ## Cluster Operations
@@ -161,12 +165,8 @@ Creates a kubernetes cluster
 
 ## Cluster Operations
 ### Replace Kubelet
-* Mark a kubelet as needing to be replaced in Terraform
-* Re-apply
-<pre><code data-trim>
-terraform taint -module=kubernetes.kubelet digitalocean_droplet.droplet.3
-terraform apply -var-file=~/secrets.tfvars -var-file=cluster.tfvars
-</code></pre> <!-- .element: class="fragment" -->
+* Mark a kubelet as needing to be replaced in Terraform (<code>terraform taint</code>)
+* <code>terraform apply</code>
 
 
 ## Cluster Opertations
@@ -186,9 +186,9 @@ terraform apply -var-file=~/secrets.tfvars -var-file=cluster.tfvars
 
 ## Benefits
 ### Cluster State
-* Everything is in version control! <!-- .element: class="fragment" -->
-* Changes are reviewed <!-- .element: class="fragment" -->
-* Terraform lets you preview changes <!-- .element: class="fragment" -->
+* Everything is in version control!
+* Changes are reviewed
+* Terraform lets you preview changes
 
 
 ## Benefits
@@ -199,8 +199,8 @@ terraform apply -var-file=~/secrets.tfvars -var-file=cluster.tfvars
 
 ## Recap
 * Codifying infrastructure makes managing many Kubernetes clusters easier
-* Terraform made cluster operations simple and predictable
-* Vault secures the cluster automatically
+* Terraform makes cluster operations simple and predictable
+* Vault lets you easily secure the cluster
 
 
 ## See it in Action
@@ -213,7 +213,8 @@ docker pull protochron/automacon-2016
 
 ## Thanks for listening!
 
-@protochron
+* Twitter: @protochron
+* Github: @protochron
 
 
 ## Resources
@@ -225,3 +226,7 @@ docker pull protochron/automacon-2016
 
 ## Resources
 ### Terraform
+* [Two Weeks with Terraform](https://charity.wtf/2016/02/23/two-weeks-with-terraform/)
+* [Terraform Docs](https://www.terraform.io/docs/)
+* [Terraform Infrastructure Design Patterns](https://opencredo.com/terraform-infrastructure-design-patterns)
+* [Terraform Modules for Fun and Profit](http://blog.lusis.org/blog/2015/10/12/terraform-modules-for-fun-and-profit/)
