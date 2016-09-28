@@ -1,4 +1,5 @@
 default: present
+
 build-image:
 	docker build -t protochron/automacon-2016 .
 
@@ -11,3 +12,6 @@ present-dev: build-image
 
 present: build-image
 	docker run --rm -it --net=host protochron/automacon-2016
+
+push-image: build-image
+	docker push protochron/automacon-2016
